@@ -1,3 +1,5 @@
+local scratch = require("config.scratch")
+
 require("snacks").setup({
   bigfile = {
     notify = true,
@@ -48,6 +50,7 @@ require("snacks").setup({
   indent = {},
   lazygit = {},
   picker = {},
+  scratch = scratch.opts,
   statuscolumn = {},
   words = {},
 })
