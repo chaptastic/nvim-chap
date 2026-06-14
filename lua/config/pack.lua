@@ -2,6 +2,7 @@ local gh = function(x) return "https://github.com/" .. x end
 
 vim.pack.add({
   gh("folke/tokyonight.nvim"),
+  { src = gh("nvim-treesitter/nvim-treesitter"), version = "main" },
   gh("mason-org/mason.nvim"),
   gh("neovim/nvim-lspconfig"),
   gh("mason-org/mason-lspconfig.nvim"),

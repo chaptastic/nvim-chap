@@ -1,5 +1,6 @@
 require("config.options")
 require("config.pack")
+require("config.treesitter")
 require("config.snacks")
 require("config.keymaps")
 require("config.diagnostics")
