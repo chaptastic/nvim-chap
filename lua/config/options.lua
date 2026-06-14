@@ -13,9 +13,9 @@ vim.o.splitright = true
 vim.o.signcolumn = "yes"
 vim.o.list = true
 vim.opt.listchars = {
-	tab = "» ",
-	trail = "·",
-	nbsp = "␣",
+  tab = "» ",
+  trail = "·",
+  nbsp = "␣",
 }
 vim.o.undofile = true
 vim.o.wildmenu = true

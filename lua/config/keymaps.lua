@@ -1,13 +1,9 @@
-vim.g.mapleader = ' '
-
 local map = function(mode, lhs, rhs, desc)
   -- See `:h vim.keymap.set()`
   vim.keymap.set(mode, lhs, rhs, { desc = desc })
 end
 
-local nmap = function(lhs, rhs, desc)
-  map('n', lhs, rhs, desc)
-end
+local nmap = function(lhs, rhs, desc) map("n", lhs, rhs, desc) end
 
 nmap("<leader><space>", function() Snacks.picker.smart() end, "Smart Find Files")
 nmap("<leader>,", function() Snacks.picker.buffers() end, "Buffers")
@@ -37,9 +33,8 @@ nmap("<leader>sB", function() Snacks.picker.grep_buffers() end, "Grep Open Buffe
 nmap("<leader>sg", function() Snacks.picker.grep() end, "Grep")
 map({ "n", "x" }, "<leader>sw", function() Snacks.picker.grep_word() end, "Visual selection or word")
 nmap('<leader>s"', function() Snacks.picker.registers() end, "Registers")
-nmap('<leader>s/', function() Snacks.picker.search_history() end, "Search History")
+nmap("<leader>s/", function() Snacks.picker.search_history() end, "Search History")
 nmap("<leader>sa", function() Snacks.picker.autocmds() end, "Autocmds")
-nmap("<leader>sb", function() Snacks.picker.lines() end, "Buffer Lines")
 nmap("<leader>sc", function() Snacks.picker.command_history() end, "Command History")
 nmap("<leader>sC", function() Snacks.picker.commands() end, "Commands")
 nmap("<leader>sd", function() Snacks.picker.diagnostics() end, "Diagnostics")
@@ -66,4 +61,3 @@ nmap("gai", function() Snacks.picker.lsp_incoming_calls() end, "C[a]lls Incoming
 nmap("gao", function() Snacks.picker.lsp_outgoing_calls() end, "C[a]lls Outgoing")
 nmap("<leader>ss", function() Snacks.picker.lsp_symbols() end, "LSP Symbols")
 nmap("<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, "LSP Workspace Symbols")
-
