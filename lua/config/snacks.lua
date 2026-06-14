@@ -18,7 +18,30 @@ require("snacks").setup({
       end)
     end,
   },
-  dashboard = {},
+  dashboard = {
+    -- Default sections include a "startup" section that requires lazy.nvim's
+    -- `lazy.stats`; we're on vim.pack, so define sections explicitly without it.
+    preset = {
+      keys = {
+        { icon = " ", key = "f", desc = "Find File", action = function() Snacks.picker.files() end },
+        { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
+        { icon = " ", key = "g", desc = "Find Text", action = function() Snacks.picker.grep() end },
+        { icon = " ", key = "r", desc = "Recent Files", action = function() Snacks.picker.recent() end },
+        {
+          icon = " ",
+          key = "c",
+          desc = "Config",
+          action = function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end,
+        },
+        { icon = " ", key = "q", desc = "Quit", action = ":qa" },
+      },
+    },
+    sections = {
+      { section = "header" },
+      { section = "keys", gap = 1, padding = 1 },
+      { section = "recent_files", icon = " ", title = "Recent Files", indent = 2, padding = 1 },
+    },
+  },
   gh = {},
   gitbrowse = {},
   image = {},

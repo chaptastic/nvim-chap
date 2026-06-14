@@ -2,7 +2,10 @@ local gh = function(x) return "https://github.com/" .. x end
 
 vim.pack.add({
   gh("folke/tokyonight.nvim"),
-  { src = gh("nvim-treesitter/nvim-treesitter"), version = "main" },
+  -- Original nvim-treesitter was archived (Apr 2026); this is the maintained
+  -- community fork. Parser sources come from the separate registry dependency.
+  gh("neovim-treesitter/treesitter-parser-registry"),
+  gh("neovim-treesitter/nvim-treesitter"),
   gh("mason-org/mason.nvim"),
   gh("neovim/nvim-lspconfig"),
   gh("mason-org/mason-lspconfig.nvim"),
