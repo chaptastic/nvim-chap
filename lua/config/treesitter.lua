@@ -27,8 +27,20 @@ require("nvim-treesitter").install(parsers)
 
 vim.api.nvim_create_autocmd("FileType", {
   callback = function(args)
+    -- Only normal file buffers. Skips special UI buffers such as ui2's
+    -- cmd/msg/pager/dialog windows (buftype "nofile"), prompts, help, etc.
+    if vim.bo[args.buf].buftype ~= "" then
+      return
+    end
     local lang = vim.treesitter.language.get_lang(args.match)
-    if not (lang and pcall(vim.treesitter.language.add, lang)) then
+    if not lang then
+      return
+    end
+    -- `language.add` returns (true) when a parser is available and (nil, err)
+    -- when not — it does NOT throw, so check its return value, not just that
+    -- pcall succeeded.
+    local ok, added = pcall(vim.treesitter.language.add, lang)
+    if not (ok and added) then
       return
     end
     vim.treesitter.start(args.buf, lang)

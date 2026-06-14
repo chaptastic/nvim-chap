@@ -11,6 +11,12 @@ nmap("<leader>/", function() Snacks.picker.grep() end, "Grep")
 nmap("<leader>:", function() Snacks.picker.command_history() end, "Command History")
 nmap("<leader>n", function() Snacks.picker.notifications() end, "Notification History")
 nmap("<leader>e", function() Snacks.explorer() end, "File Explorer")
+map(
+  { "n", "x" },
+  "<leader>cf",
+  function() require("conform").format({ async = true, lsp_format = "fallback" }) end,
+  "Format Buffer/Selection"
+)
 nmap("<leader>.", function() Snacks.scratch() end, "Toggle Scratch")
 nmap("<leader>S", function() Snacks.scratch.select() end, "Select Scratch")
 nmap("<leader>fb", function() Snacks.picker.buffers() end, "Buffers")

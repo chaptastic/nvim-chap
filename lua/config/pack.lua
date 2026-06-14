@@ -26,10 +26,25 @@ require("which-key").setup()
 require("conform").setup({
   formatters_by_ft = {
     lua = { "stylua" },
+    javascript = { "prettierd" },
+    javascriptreact = { "prettierd" },
+    typescript = { "prettierd" },
+    typescriptreact = { "prettierd" },
+    json = { "prettierd" },
+    jsonc = { "prettierd" },
+    css = { "prettierd" },
+    scss = { "prettierd" },
   },
-  format_after_save = {
-    lsp_format = "fallback",
-  },
+  -- Auto-format on save everywhere except Ruby/ERB: ruby-lsp formats the whole
+  -- file through rubocop, which makes noisy diffs on legacy files. Format those
+  -- on demand with <leader>cf instead.
+  format_after_save = function(bufnr)
+    local ft = vim.bo[bufnr].filetype
+    if ft == "ruby" or ft == "eruby" then
+      return nil
+    end
+    return { lsp_format = "fallback" }
+  end,
 })
 
 require("oil").setup({
