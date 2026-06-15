@@ -1,9 +1,7 @@
 local gh = function(x) return "https://github.com/" .. x end
 
 vim.pack.add({
-  gh("folke/tokyonight.nvim"),
-  -- Original nvim-treesitter was archived (Apr 2026); this is the maintained
-  -- community fork. Parser sources come from the separate registry dependency.
+  gh("rose-pine/neovim"),
   gh("neovim-treesitter/treesitter-parser-registry"),
   gh("neovim-treesitter/nvim-treesitter"),
   gh("mason-org/mason.nvim"),
@@ -16,11 +14,10 @@ vim.pack.add({
   gh("kylechui/nvim-surround"),
   gh("gregorias/nvim-surround-wk"),
   gh("stevearc/conform.nvim"),
-  gh("stevearc/oil.nvim"),
   gh("coder/claudecode.nvim"),
 })
 
-vim.cmd([[colorscheme tokyonight-night]])
+vim.cmd([[colorscheme rose-pine-main]])
 
 require("which-key").setup()
 
@@ -48,31 +45,20 @@ require("conform").setup({
   end,
 })
 
-require("oil").setup({
-  default_file_explorer = true,
-  columns = {
-    "icon",
-    "permissions",
-    "size",
-    "mtime",
-  },
-})
-
 require("nvim-surround").setup()
 require("nvim-surround-wk").setup()
 
--- Connects nvim to the Claude Code CLI; proposed edits arrive as native nvim
--- diffs. Keymaps under <leader>a. The default provider is "auto" (prefers
--- Snacks when present), but we pin it to "snacks" and render Claude in a
--- centered float instead of the default right-side split.
 require("claudecode").setup({
   terminal = {
     provider = "snacks",
     snacks_win_opts = {
-      position = "float",
-      width = 0.85,
-      height = 0.85,
-      border = "rounded",
+      position = "bottom",
+      width = 1.0,
+      height = 0.4,
+      border = "single",
+      keys = {
+        claude_hide = { "<C-,>", function(self) self:hide() end, mode = "t", desc = "Hide (Ctrl+,)" },
+      },
     },
   },
 })
