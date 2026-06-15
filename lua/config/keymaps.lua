@@ -4,6 +4,7 @@ local map = function(mode, lhs, rhs, desc)
 end
 
 local nmap = function(lhs, rhs, desc) map("n", lhs, rhs, desc) end
+local tmap = function(lhs, rhs, desc) map("t", lhs, rhs, desc) end
 
 nmap("<leader><space>", function() Snacks.picker.smart() end, "Smart Find Files")
 nmap("<leader>,", function() Snacks.picker.buffers() end, "Buffers")
@@ -19,6 +20,13 @@ map(
 )
 nmap("<leader>.", function() Snacks.scratch() end, "Toggle Scratch")
 nmap("<leader>S", function() Snacks.scratch.select() end, "Select Scratch")
+nmap("<leader>ac", "<cmd>ClaudeCode<cr>", "Claude Code (toggle)")
+nmap("<leader>af", "<cmd>ClaudeCodeFocus<cr>", "Claude Focus")
+nmap("<leader>am", "<cmd>ClaudeCodeSelectModel<cr>", "Claude Select Model")
+nmap("<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", "Claude Add Buffer")
+map("x", "<leader>as", "<cmd>ClaudeCodeSend<cr>", "Claude Send Selection")
+nmap("<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", "Claude Accept Diff")
+nmap("<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>", "Claude Deny Diff")
 nmap("<leader>fb", function() Snacks.picker.buffers() end, "Buffers")
 nmap("<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, "Find Config File")
 nmap("<leader>ff", function() Snacks.picker.files() end, "Find Files")
@@ -69,3 +77,21 @@ nmap("gai", function() Snacks.picker.lsp_incoming_calls() end, "C[a]lls Incoming
 nmap("gao", function() Snacks.picker.lsp_outgoing_calls() end, "C[a]lls Outgoing")
 nmap("<leader>ss", function() Snacks.picker.lsp_symbols() end, "LSP Symbols")
 nmap("<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, "LSP Workspace Symbols")
+
+-- Terminal -------------------------------------------------------------------
+-- Toggle a Snacks terminal. <C-/> is the LazyVim convention; many terminal
+-- emulators send <C-_> for that chord, so map both, from normal and terminal mode.
+map({ "n", "t" }, "<C-/>", function() Snacks.terminal.toggle() end, "Toggle Terminal")
+map({ "n", "t" }, "<C-_>", function() Snacks.terminal.toggle() end, "Toggle Terminal")
+
+-- Leave terminal mode without the <C-\><C-n> chord. Double-Esc so a single Esc
+-- still reaches the running program (shell vi-mode, TUIs, fzf, etc.).
+tmap("<Esc><Esc>", "<C-\\><C-n>", "Exit terminal mode")
+tmap("<C-[><C-[>", "<C-\\><C-n>", "Exit terminal mode")
+
+-- Window navigation straight from terminal mode (no escape-then-switch dance).
+-- Note: <C-l> shadows "clear screen" while focused in a terminal.
+tmap("<C-h>", "<C-\\><C-n><C-w>h", "Go to left window")
+tmap("<C-j>", "<C-\\><C-n><C-w>j", "Go to lower window")
+tmap("<C-k>", "<C-\\><C-n><C-w>k", "Go to upper window")
+tmap("<C-l>", "<C-\\><C-n><C-w>l", "Go to right window")

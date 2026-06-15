@@ -17,6 +17,7 @@ vim.pack.add({
   gh("gregorias/nvim-surround-wk"),
   gh("stevearc/conform.nvim"),
   gh("stevearc/oil.nvim"),
+  gh("coder/claudecode.nvim"),
 })
 
 vim.cmd([[colorscheme tokyonight-night]])
@@ -59,3 +60,19 @@ require("oil").setup({
 
 require("nvim-surround").setup()
 require("nvim-surround-wk").setup()
+
+-- Connects nvim to the Claude Code CLI; proposed edits arrive as native nvim
+-- diffs. Keymaps under <leader>a. The default provider is "auto" (prefers
+-- Snacks when present), but we pin it to "snacks" and render Claude in a
+-- centered float instead of the default right-side split.
+require("claudecode").setup({
+  terminal = {
+    provider = "snacks",
+    snacks_win_opts = {
+      position = "float",
+      width = 0.85,
+      height = 0.85,
+      border = "rounded",
+    },
+  },
+})
