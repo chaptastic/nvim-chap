@@ -15,6 +15,7 @@ vim.pack.add({
   gh("gregorias/nvim-surround-wk"),
   gh("stevearc/conform.nvim"),
   gh("coder/claudecode.nvim"),
+  gh("NMAC427/guess-indent.nvim"),
 })
 
 vim.cmd([[colorscheme rose-pine-main]])
@@ -47,6 +48,10 @@ require("conform").setup({
 
 require("nvim-surround").setup()
 require("nvim-surround-wk").setup()
+
+-- Detect each file's actual indentation on open and override the 2-space
+-- defaults in options.lua per buffer. Handles the mixed tabs/spaces codebase.
+require("guess-indent").setup()
 
 require("claudecode").setup({
   terminal = {
